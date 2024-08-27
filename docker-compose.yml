@@ -1,0 +1,78 @@
+services:
+  rabbitmq:
+      image: rabbitmq:3-management
+      environment:
+        RABBITMQ_LOGS: "-w"
+        RABBITMQ_DEFAULT_USER: guest
+        RABBITMQ_DEFAULT_PASS: guest
+      ports:
+        - "5672:5672"
+        - "15672:15672"
+      networks:
+        - todo-network
+      volumes:
+        - rabbitmq-data:/var/lib/rabbitmq
+
+  auth-service:
+    build:
+      context: ./auth-service
+    ports:
+      - "3001:3000"
+    networks:
+      - todo-network
+    env_file:
+      - .env
+    depends_on:
+      - auth-db
+      - rabbitmq
+    restart: always  
+
+  board-service:
+    build:
+      context: ./board-service
+    ports:
+      - "3002:3000"
+    networks:
+      - todo-network
+    env_file:
+      - .env
+    depends_on:
+      - board-db
+      - rabbitmq
+    restart: always  
+  
+
+  auth-db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1111
+      POSTGRES_DB: auth_service
+    ports:
+      - "5433:5432" 
+    networks:
+      - todo-network
+    volumes:
+      - auth-db-data:/var/lib/postgresql/data
+
+  board-db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1111
+      POSTGRES_DB: board_service
+    ports:
+      - "5434:5432" 
+    networks:
+      - todo-network
+    volumes:
+      - board-db-data:/var/lib/postgresql/data
+
+networks:
+  todo-network:
+    driver: bridge
+
+volumes:
+  auth-db-data:
+  board-db-data:
+  rabbitmq-data:

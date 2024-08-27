@@ -1,0 +1,22 @@
+# Ignore node_modules in all service directories
+auth-service/node_modules/
+board-service/node_modules/
+
+# Ignore environment variables files (optional)
+.env
+
+# Ignore Docker-related files
+docker-compose.override.yml
+docker-compose.override.yaml
+
+# Ignore logs
+*.log
+
+# Ignore other files like cache and build outputs
+**/dist/
+**/build/
+**/.cache/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
