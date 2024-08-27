@@ -1,4 +1,4 @@
-# Проект Todo List
+# Todo List
 
 ## Описание
 
@@ -15,8 +15,10 @@
 
    ```bash
    git clone https://github.com/dddurnov/todo-nestjs-microservices-backend.git
+   ```
+   ```bash
    cd todo-nestjs-microservices-backend
-
+   ```
 
 2. **Создайте файл `.env`**
 
@@ -51,7 +53,9 @@
    - **Auth Service**: [http://localhost:3001](http://localhost:3001)
    - **Board Service**: [http://localhost:3002](http://localhost:3002)
    - **RabbitMQ Management**: [http://localhost:15672](http://localhost:15672) (Логин: guest, Пароль: guest)
-   - 
+   - **Swagger API Documentation (Auth Service)**: [http://localhost:3001/api](http://localhost:3001/api)
+   - **Swagger API Documentation (Board Service)**: [http://localhost:3002/api](http://localhost:3002/api) 
+     
  ## Остановка
 
    Для остановки контейнеров выполните команду:
